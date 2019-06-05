@@ -1,11 +1,12 @@
 const request = require('request');
 
+var key = //key
 var convertToC = (temp) => {
     return (((temp - 32)*5 )/9).toFixed(2);
 }
 var getWeather = (lat, lng, callback) => {
     request({
-    url: `https://api.darksky.net/forecast/74b2dae0a3dff060e64767cc1d7f2b64/${lat},${lng}`,
+    url: `https://api.darksky.net/forecast/${key}/${lat},${lng}`,
     json: true
 
 },(error, response, body) => {
@@ -14,7 +15,15 @@ var getWeather = (lat, lng, callback) => {
             temperatureF: body.currently.temperature,
             apparentTemperatureF: body.currently.apparentTemperature,
             temperatureC: convertToC(body.currently.temperature),
-            apparentTemperatureC: convertToC(body.currently.apparentTemperature)
+            apparentTemperatureC: convertToC(body.currently.apparentTemperature),
+            summary: body.currently.summary,
+            precipType: body.currently.precipType,
+            pressure: body.currently.pressure,
+            windSpeed: body.currently.windSpeed,
+            windGust: body.currently.windGust,
+            windBearing: body.currently.windBearing
+
+
         });
     }
     else {
